@@ -1,3 +1,8 @@
+# This python3 file implements the linear regression using TensorFlow.
+# The example uses california housing data from scikit-learn
+#
+# The source code partially refers to book titled "Hands-on ML with Scikit-learn & TensorFlow"
+
 import numpy as np
 import tensorflow as tf
 from sklearn.datasets import fetch_california_housing
