@@ -20,12 +20,12 @@ housing_data_with_bias = np.c_[np.ones((trainSize,1)), data_train]
 X = tf.constant(housing_data_with_bias, dtype=tf.float32, name="X")
 y = tf.constant(target_train.reshape(-1, 1), dtype=tf.float32, name="y")
 
-''' compute using least square
-XT = tf.transpose(X)
-theta = tf.matmul(tf.matmul(tf.matrix_inverse(tf.matmul(XT, X)), XT), y)
-with tf.Session() as sess:
-    theta_value = theta.eval()
-'''
+# Compute theta using least squares
+# XT = tf.transpose(X)
+# theta = tf.matmul(tf.matmul(tf.matrix_inverse(tf.matmul(XT, X)), XT), y)
+# with tf.Session() as sess:
+#    theta_value = theta.eval()
+
 n_epochs = 1000
 learning_rate = 0.01
 
@@ -35,8 +35,8 @@ error = y_predict -y
 mse = tf.reduce_mean(tf.square(error), name="mse")
 
 # Manully computing the gradients for linear regression
-#gradients = 2/trainSize * tf.matmul(tf.transpose(X), error)
-#training_op = tf.assign(theta, theta - learning_rate * gradients)
+# gradients = 2/trainSize * tf.matmul(tf.transpose(X), error)
+# training_op = tf.assign(theta, theta - learning_rate * gradients)
 
 # Using an Optimizer
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
