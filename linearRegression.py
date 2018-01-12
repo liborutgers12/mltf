@@ -87,6 +87,7 @@ training_op = tf.assign(theta, theta - learning_rate * (gradients))
 #training_op = optimizer.minimize(mse)
 
 init = tf.global_variables_initializer()
+saver = tf.train.Saver()
 
 mse_history = np.zeros(n_epochs)
 theta_history = np.zeros((n+1, n_epochs))
@@ -96,10 +97,12 @@ with tf.Session() as sess:
     for epoch in range(n_epochs):
         sess.run(training_op)
         if epoch % 20 == 0:
+            save_path = saver.save(sess, "./tmp/my_model.ckpt")
             print("Epoch", epoch, "MSE = ", mse.eval())
         mse_history[epoch] = mse.eval()
         theta_history[:,epoch] = theta.eval().reshape(-1)
     theta_value = theta.eval()
+    save_path = saver.save(sess, "./tmp/my_model_final.ckpt")
 
 print("The best theta value is ", theta_value.reshape(-1))
 plt.figure(2)
